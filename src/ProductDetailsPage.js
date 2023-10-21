@@ -8,35 +8,38 @@ import {
   CardContent,
   Button,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
 const allProducts = [
   {
     id: 1,
     name: "Computadora Portátil",
     description: "Laptop con procesador i7 y 16GB RAM.",
-    imageUrl: "publicImagenesLaptopPrueba.webp",
+    imageUrl: "/Imagenes/LaptopPrueba.webp",
   },
   {
     id: 2,
     name: "Teléfono Móvil",
     description: "Smartphone de 6 pulgadas, cámara de 20MP.",
-    imageUrl: "publicImagenesIphonePrueba.webp",
+    imageUrl: "/Imagenes/IphonePrueba.webp",
   },
   {
     id: 3,
     name: "Audífonos Bluetooth",
     description: "Audífonos inalámbricos con cancelación de ruido.",
-    imageUrl: "publicImagenesAirpodsPrueba.webp",
+    imageUrl: "/Imagenes/AirpodsPrueba.webp",
   },
   {
     id: 4,
     name: "Reloj Inteligente",
     description: "Con monitor de ritmo cardíaco y GPS integrado.",
-    imageUrl: "publicImagenesRelojPrueba.webp",
+    imageUrl: "/Imagenes/RelojPrueba.webp",
   },
 ];
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate(); // Hook para navegar
 
   const product = allProducts.find((prod) => prod.id === parseInt(id));
 
@@ -46,11 +49,17 @@ const ProductDetailsPage = () => {
 
   return (
     <Container>
-      <Card>
+      <Card
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <CardMedia
           component="img"
           alt={product.name}
-          height="240"
+          style={{ width: "250px", height: "250px", objectFit: "contain" }}
           image={product.imageUrl}
           title={product.name}
         />
@@ -61,7 +70,19 @@ const ProductDetailsPage = () => {
           <Typography variant="body1" paragraph>
             {product.description}
           </Typography>
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ margin: "10px" }}
+            onClick={() => navigate(-1)}
+          >
+            Regresar
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ margin: "10px" }}
+          >
             Añadir al carrito
           </Button>
         </CardContent>
