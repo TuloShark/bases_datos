@@ -37,9 +37,9 @@ const allProducts = [
   },
 ];
 
-const ProductDetailsPage = () => {
+const ProductDetailsPage = ({ addToCart }) => {
   const { id } = useParams();
-  const navigate = useNavigate(); // Hook para navegar
+  const navigate = useNavigate();
 
   const product = allProducts.find((prod) => prod.id === parseInt(id));
 
@@ -74,7 +74,7 @@ const ProductDetailsPage = () => {
             variant="contained"
             color="primary"
             style={{ margin: "10px" }}
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/")}
           >
             Regresar
           </Button>
@@ -82,6 +82,7 @@ const ProductDetailsPage = () => {
             variant="contained"
             color="primary"
             style={{ margin: "10px" }}
+            onClick={() => addToCart(product)}
           >
             Añadir al carrito
           </Button>

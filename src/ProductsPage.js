@@ -12,8 +12,9 @@ import {
 import { Link } from "react-router-dom";
 
 const ProductsPage = () => {
-  const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda.
-  const [products, setProducts] = useState([]); // Estado para almacenar productos de la búsqueda.
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [products, setProducts] = useState([]);
 
   const allProducts = [
     {
@@ -78,15 +79,12 @@ const ProductsPage = () => {
               to={`/product/${product.id}`}
               style={{ textDecoration: "none" }}
             >
-              <Card
-                onClick={() =>
-                  (window.location.href = `/product/${product.id}`)
-                }
-              >
+              <Card>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
                     {product.name}
                   </Typography>
+
                   <Typography>{product.description}</Typography>
                 </CardContent>
               </Card>
