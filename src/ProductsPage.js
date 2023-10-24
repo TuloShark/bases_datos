@@ -10,8 +10,11 @@ import {
   Box,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ProductsPage = () => {
+  const navigate = useNavigate();
+
   const [searchTerm, setSearchTerm] = useState("");
 
   const [products, setProducts] = useState([]);
@@ -56,7 +59,7 @@ const ProductsPage = () => {
         Búsqueda de Productos
       </Typography>
 
-      <Box mt={5} mb={3}>
+      <Box mt={5} mb={3} display="flex" justifyContent="space-between">
         <TextField
           label="Buscar producto..."
           variant="outlined"
@@ -67,7 +70,21 @@ const ProductsPage = () => {
           margin="normal"
         />
 
-        <Button variant="contained" color="primary" onClick={handleSearch}>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ marginRight: "10px" }}
+          onClick={() => navigate("/login")}
+        >
+          Volver
+        </Button>
+
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ marginRight: "10px" }}
+          onClick={handleSearch}
+        >
           Buscar
         </Button>
       </Box>

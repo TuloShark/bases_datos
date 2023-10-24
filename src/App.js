@@ -5,6 +5,9 @@ import ProductsPage from "./ProductsPage";
 import ProductDetailsPage from "./ProductDetailsPage";
 import CartPage from "./CartPage";
 import Header from "./Header";
+import CheckoutPage from "./CheckoutPage";
+import ConfirmationPage from "./ConfirmationPage";
+import LoginPage from "./LoginPage";
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -38,7 +41,11 @@ function App() {
         <Header cartItems={cartItems} />
         <Container style={{ marginTop: "2rem" }}>
           <Routes>
-            <Route path="/" element={<ProductsPage addToCart={addToCart} />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/products"
+              element={<ProductsPage addToCart={addToCart} />}
+            />
             <Route
               path="/product/:id"
               element={<ProductDetailsPage addToCart={addToCart} />}
@@ -52,6 +59,12 @@ function App() {
                 />
               }
             />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route
+              path="/confirmation"
+              element={<ConfirmationPage cartItems={cartItems} />}
+            />
+            <Route path="/" element={<LoginPage />} />
           </Routes>
         </Container>
       </div>
