@@ -8,6 +8,7 @@ import Header from "./Header";
 import CheckoutPage from "./CheckoutPage";
 import ConfirmationPage from "./ConfirmationPage";
 import LoginPage from "./LoginPage";
+import RegisterPage from "./RegisterPage";
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -65,6 +66,7 @@ function App() {
               element={<ConfirmationPage cartItems={cartItems} />}
             />
             <Route path="/" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </Container>
       </div>

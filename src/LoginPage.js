@@ -1,67 +1,75 @@
 import React, { useState } from "react";
-import { Container, Typography, TextField, Box, Button } from "@mui/material";
+import { Container, Typography, TextField, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const [loginData, setLoginData] = useState({
+  const navigate = useNavigate();
+
+  const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
-  const navigate = useNavigate();
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setLoginData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const handleChange = (e) => {
+    setCredentials({
+      ...credentials,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Aquí puedes agregar la lógica para iniciar sesión, como verificar los datos con el servidor
-    console.log("Login data submitted: ", loginData);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // Lógica para iniciar sesión
+    // Por simplicidad, simplemente navegamos a la página de productos.
+    navigate("/");
+  };
 
-    // Si el inicio de sesión es exitoso, redirecciona a la página de productos
-    navigate("/products"); // nota que hemos cambiado el path principal por "/products"
+  const goToRegister = () => {
+    navigate("/register");
   };
 
   return (
-    <Container maxWidth="xs">
-      <Box my={8}>
-        <Typography variant="h4" gutterBottom>
-          Iniciar Sesión
-        </Typography>
-
-        <form onSubmit={handleSubmit}>
+    <Container>
+      <Typography variant="h4" gutterBottom>
+        Inicio de Sesión
+      </Typography>
+      <Box mt={3}>
+        <form onSubmit={handleLogin}>
           <TextField
-            variant="outlined"
-            margin="normal"
-            required
             fullWidth
-            id="email"
             label="Correo Electrónico"
+            variant="outlined"
             name="email"
-            autoFocus
-            value={loginData.email}
-            onChange={handleInputChange}
+            value={credentials.email}
+            onChange={handleChange}
+            margin="normal"
           />
           <TextField
-            variant="outlined"
-            margin="normal"
-            required
             fullWidth
-            name="password"
-            label="Contraseña"
             type="password"
-            id="password"
-            value={loginData.password}
-            onChange={handleInputChange}
+            label="Contraseña"
+            variant="outlined"
+            name="password"
+            value={credentials.password}
+            onChange={handleChange}
+            margin="normal"
           />
-
-          <Box mt={2}>
-            <Button type="submit" fullWidth variant="contained" color="primary">
+          <Box mt={2} display="flex" justifyContent="space-between">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              style={{ width: "48%" }}
+            >
               Iniciar Sesión
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ width: "48%" }}
+              onClick={goToRegister}
+            >
+              Registrarse
             </Button>
           </Box>
         </form>
