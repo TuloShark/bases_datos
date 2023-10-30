@@ -1,79 +1,80 @@
 import React, { useState } from "react";
-import { Container, Typography, TextField, Button, Box } from "@mui/material";
+import { Container, Typography, TextField, Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
-  const navigate = useNavigate();
-
-  const [userData, setUserData] = useState({
+  const [registerData, setRegisterData] = useState({
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setUserData({
-      ...userData,
-      [e.target.name]: e.target.value,
-    });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setRegisterData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    // Aquí vendría la lógica para registrarse
-    // Por simplicidad, asumimos que el registro es exitoso y navegamos a la página de inicio.
-    // navigate('/');
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Aquí puedes agregar la lógica para registrarse, como enviar los datos al servidor
+    console.log("Register data submitted: ", registerData);
+
+    // Si el registro es exitoso, redirecciona a la página de inicio de sesión
+    navigate("/login");
   };
 
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>
-        Registrar Usuario
-      </Typography>
-      <Box mt={3}>
-        <form onSubmit={handleRegister}>
+    <Container maxWidth="xs">
+      <Box my={8}>
+        <Typography variant="h4" gutterBottom>
+          Registrarse
+        </Typography>
+
+        <form onSubmit={handleSubmit}>
           <TextField
+            variant="outlined"
+            margin="normal"
+            required
             fullWidth
+            id="email"
             label="Correo Electrónico"
-            variant="outlined"
             name="email"
-            value={userData.email}
-            onChange={handleChange}
-            margin="normal"
+            autoFocus
+            value={registerData.email}
+            onChange={handleInputChange}
           />
           <TextField
-            fullWidth
-            type="password"
-            label="Contraseña"
             variant="outlined"
+            margin="normal"
+            required
+            fullWidth
             name="password"
-            value={userData.password}
-            onChange={handleChange}
-            margin="normal"
+            label="Contraseña"
+            type="password"
+            id="password"
+            value={registerData.password}
+            onChange={handleInputChange}
           />
           <TextField
-            fullWidth
-            type="password"
-            label="Confirmar Contraseña"
             variant="outlined"
-            name="confirmPassword"
-            value={userData.confirmPassword}
-            onChange={handleChange}
             margin="normal"
+            required
+            fullWidth
+            name="confirmPassword"
+            label="Confirmar Contraseña"
+            type="password"
+            id="confirmPassword"
+            value={registerData.confirmPassword}
+            onChange={handleInputChange}
           />
+
           <Box mt={2}>
-            <Button type="submit" variant="contained" color="primary" fullWidth>
+            <Button type="submit" fullWidth variant="contained" color="primary">
               Registrarse
-            </Button>
-          </Box>
-          <Box mt={2}>
-            <Button
-              variant="text"
-              color="default"
-              fullWidth
-              onClick={() => navigate("/login")}
-            >
-              ¿Ya tienes cuenta? Iniciar Sesión
             </Button>
           </Box>
         </form>

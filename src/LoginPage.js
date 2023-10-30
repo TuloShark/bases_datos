@@ -1,75 +1,79 @@
 import React, { useState } from "react";
-import { Container, Typography, TextField, Button, Box } from "@mui/material";
+import { Container, Typography, TextField, Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
-
-  const [credentials, setCredentials] = useState({
+  const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setCredentials({
-      ...credentials,
-      [e.target.name]: e.target.value,
-    });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setLoginData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     // Lógica para iniciar sesión
-    // Por simplicidad, simplemente navegamos a la página de productos.
-    navigate("/");
-  };
+    console.log("Login data submitted: ", loginData);
 
-  const goToRegister = () => {
-    navigate("/register");
+    // Redireccionar a la página de productos.
+    navigate("/products");
   };
 
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>
-        Inicio de Sesión
-      </Typography>
-      <Box mt={3}>
-        <form onSubmit={handleLogin}>
+    <Container maxWidth="xs">
+      <Box my={8}>
+        <Typography variant="h4" gutterBottom>
+          Inicio de Sesión
+        </Typography>
+
+        <form onSubmit={handleSubmit}>
           <TextField
+            variant="outlined"
+            margin="normal"
+            required
             fullWidth
+            id="email"
             label="Correo Electrónico"
-            variant="outlined"
             name="email"
-            value={credentials.email}
-            onChange={handleChange}
-            margin="normal"
+            autoFocus
+            value={loginData.email}
+            onChange={handleInputChange}
           />
           <TextField
-            fullWidth
-            type="password"
-            label="Contraseña"
             variant="outlined"
-            name="password"
-            value={credentials.password}
-            onChange={handleChange}
             margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Contraseña"
+            type="password"
+            id="password"
+            value={loginData.password}
+            onChange={handleInputChange}
           />
-          <Box mt={2} display="flex" justifyContent="space-between">
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              style={{ width: "48%" }}
-            >
+
+          <Box mt={2}>
+            <Button type="submit" fullWidth variant="contained" color="primary">
               Iniciar Sesión
             </Button>
+          </Box>
+
+          {/* Botón para navegar a la página de registro */}
+          <Box mt={2}>
             <Button
-              variant="contained"
-              color="primary"
-              style={{ width: "48%" }}
-              onClick={goToRegister}
+              fullWidth
+              variant="text"
+              color="inherit" // Asegúrate de que el color sea heredado.
+              onClick={() => navigate("/register")}
             >
-              Registrarse
+              ¿No tienes una cuenta? Regístrate
             </Button>
           </Box>
         </form>
