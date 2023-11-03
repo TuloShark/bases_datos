@@ -13,17 +13,26 @@ const LoginPage = () => {
     const { name, value } = event.target;
     setLoginData((prevData) => ({
       ...prevData,
-      [name]: value,
     }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Lógica para iniciar sesión
-    console.log("Login data submitted: ", loginData);
+  const handleLogin = async () => {
+    try {
+      const response = await authenticateUser(
+        loginData.email,
+        loginData.password
+      );
 
-    // Redireccionar a la página de productos.
-    navigate("/products");
+      if (response === "Authentication Successful") {
+        navigate("/products");
+      } else if (response === "Authentication Failed") {
+        alert("La autenticación falló. Verifica tus credenciales.");
+      } else if (response === "User Not Found") {
+        alert("Usuario no encontrado. Regístrate si no tienes una cuenta.");
+      }
+    } catch (error) {
+      alert("Ocurrió un error durante la autenticación.");
+    }
   };
 
   return (
@@ -33,7 +42,7 @@ const LoginPage = () => {
           Inicio de Sesión
         </Typography>
 
-        <form onSubmit={handleSubmit}>
+        <div>
           <TextField
             variant="outlined"
             margin="normal"
@@ -58,25 +67,29 @@ const LoginPage = () => {
             value={loginData.password}
             onChange={handleInputChange}
           />
+        </div>
 
-          <Box mt={2}>
-            <Button type="submit" fullWidth variant="contained" color="primary">
-              Iniciar Sesión
-            </Button>
-          </Box>
+        <div>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={handleLogin}
+          >
+            Iniciar Sesión
+          </Button>
+        </div>
 
-          {/* Botón para navegar a la página de registro */}
-          <Box mt={2}>
-            <Button
-              fullWidth
-              variant="text"
-              color="inherit" // Asegúrate de que el color sea heredado.
-              onClick={() => navigate("/register")}
-            >
-              ¿No tienes una cuenta? Regístrate
-            </Button>
-          </Box>
-        </form>
+        <div>
+          <Button
+            fullWidth
+            variant="text"
+            color="inherit"
+            onClick={() => navigate("/register")}
+          >
+            ¿No tienes una cuenta? Regístrate
+          </Button>
+        </div>
       </Box>
     </Container>
   );
