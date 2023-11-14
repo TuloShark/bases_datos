@@ -2,15 +2,14 @@ const express = require("express");
 const mssql = require("mssql");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const path = require("path");
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
-// Configurar middleware
 app.use(cors());
 app.use(bodyParser.json());
 
-// Configuración de conexión a SQL Server
 const dbConfig = {
   user: "sa",
   password: "1234",
@@ -26,7 +25,7 @@ app.post("/login", async (req, res) => {
     await mssql.connect(dbConfig);
 
     const result =
-      await mssql.query`SELECT * FROM usuarios WHERE email = ${email} AND password = ${password}`;
+      await mssql.query`SELECT * FROM Users WHERE Email = ${email} AND PasswordHash = ${password}`;
 
     if (result.recordset.length === 1) {
       // Usuario autenticado correctamente
@@ -42,6 +41,22 @@ app.post("/login", async (req, res) => {
   } finally {
     mssql.close();
   }
+});
+
+// ... (Rutas y configuración adicional)
+
+// Define una ruta predeterminada para la raíz del servidor
+app.get("/", (req, res) => {
+  // Redirige a la página de inicio de sesión
+  res.redirect("/login");
+});
+
+// Sirve los archivos estáticos de la aplicación React
+app.use(express.static(path.join(__dirname, "client/build")));
+
+// Ruta para manejar todas las demás solicitudes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
 
 // Iniciar el servidor

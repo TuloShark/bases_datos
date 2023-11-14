@@ -13,26 +13,14 @@ const LoginPage = () => {
     const { name, value } = event.target;
     setLoginData((prevData) => ({
       ...prevData,
+      [name]: value,
     }));
   };
 
-  const handleLogin = async () => {
-    try {
-      const response = await authenticateUser(
-        loginData.email,
-        loginData.password
-      );
-
-      if (response === "Authentication Successful") {
-        navigate("/products");
-      } else if (response === "Authentication Failed") {
-        alert("La autenticación falló. Verifica tus credenciales.");
-      } else if (response === "User Not Found") {
-        alert("Usuario no encontrado. Regístrate si no tienes una cuenta.");
-      }
-    } catch (error) {
-      alert("Ocurrió un error durante la autenticación.");
-    }
+  const handleLogin = () => {
+    // Aquí puedes implementar la lógica de autenticación si es necesario
+    // Por ahora, simplemente redirigiremos al usuario a la página de productos
+    navigate("/products");
   };
 
   return (

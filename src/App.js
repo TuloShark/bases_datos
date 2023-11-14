@@ -9,6 +9,7 @@ import CheckoutPage from "./CheckoutPage";
 import ConfirmationPage from "./ConfirmationPage";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
+import { Navigate } from "react-router-dom";
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -42,6 +43,8 @@ function App() {
         <Header cartItems={cartItems} />
         <Container style={{ marginTop: "2rem" }}>
           <Routes>
+            {/* Ruta por defecto que redirige a la página de login */}
+            <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<LoginPage />} />
             <Route
               path="/products"
@@ -65,7 +68,6 @@ function App() {
               path="/confirmation"
               element={<ConfirmationPage cartItems={cartItems} />}
             />
-            <Route path="/" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </Container>
