@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Typography, TextField, Box, Button } from "@mui/material";
+import { Container, Typography, Box, TextField, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
@@ -7,6 +7,7 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
@@ -17,10 +18,29 @@ const LoginPage = () => {
     }));
   };
 
-  const handleLogin = () => {
-    // Aquí puedes implementar la lógica de autenticación si es necesario
-    // Por ahora, simplemente redirigiremos al usuario a la página de productos
-    navigate("/products");
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Autenticación exitosa, redirigir a la página de productos
+        navigate("/products");
+      } else {
+        // Autenticación fallida, mostrar mensaje de error
+        setErrorMessage(data.message);
+      }
+    } catch (error) {
+      console.error("Error de autenticación:", error);
+      setErrorMessage("Ocurrió un error durante la autenticación.");
+    }
   };
 
   return (
@@ -78,6 +98,10 @@ const LoginPage = () => {
             ¿No tienes una cuenta? Regístrate
           </Button>
         </div>
+
+        {errorMessage && (
+          <div style={{ marginTop: "1rem", color: "red" }}>{errorMessage}</div>
+        )}
       </Box>
     </Container>
   );
