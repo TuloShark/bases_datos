@@ -53,7 +53,7 @@ INSERT INTO Empleados (nombre, rol, salario, moneda, bodegaId) VALUES ('Juan Per
 INSERT INTO Empleados (nombre, rol, salario, moneda, bodegaId) VALUES ('Ana Gomez', 'jefe de logistica', 4500.00, 'USD', 1);
 -- Productos en Bodega Norte
 INSERT INTO Productos (nombre, descripcion, cantidad, afinidadId) VALUES ('laptop hp', 'laptop hp modelo x123', 40, 1);
-INSERT INTO Productos (nombre, descripcion, cantidad, afinidadId) VALUES ('camiseta algodon', 'camiseta de algodon talla m', 150, 2);
+INSERT INTO Productos (nombre, descripcion, cantidad, afinidadId) VALUES ('tijeras', 'tijeras negras', 100, 5);
 
 -- Empleados en Bodega Sur
 INSERT INTO Empleados (nombre, rol, salario, moneda, bodegaId) VALUES ('Carlos Ruiz', 'bodeguero', 2500.00, 'COP', 2);
