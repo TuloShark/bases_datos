@@ -57,3 +57,13 @@ CREATE TABLE CargasSocialesPorPais (
     porcentaje DECIMAL(5, 2) NOT NULL,
     FOREIGN KEY (paisId) REFERENCES Paises(paisId)
 );
+
+CREATE TABLE PerformanceReviews (
+    reviewId INT AUTO_INCREMENT PRIMARY KEY,
+    empleadoId INT,
+    fechaReview DATE NOT NULL,
+    puntuacion INT,
+    comentarios TEXT,
+    FOREIGN KEY (empleadoId) REFERENCES InfoPersonal(empleadoId)
+);
+
