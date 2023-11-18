@@ -20,7 +20,7 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      /*const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,15 +28,15 @@ const LoginPage = () => {
         body: JSON.stringify(loginData),
       });
 
-      const data = await response.json();
+      const data = await response.json();*/
 
-      if (response.ok) {
-        // Autenticación exitosa, redirigir a la página de productos
+      /*if (response.ok) {
+        Autenticación exitosa, redirigir a la página de productos*/
         navigate("/products");
-      } else {
-        // Autenticación fallida, mostrar mensaje de error
+      /*} else {
+        Autenticación fallida, mostrar mensaje de error
         setErrorMessage(data.message);
-      }
+      /}*/
     } catch (error) {
       console.error("Error de autenticación:", error);
       setErrorMessage("Ocurrió un error durante la autenticación.");

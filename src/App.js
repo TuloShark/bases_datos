@@ -10,6 +10,8 @@ import ConfirmationPage from "./ConfirmationPage";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import { Navigate } from "react-router-dom";
+import Employees from './Employees';
+import CustomerService from './CustomerService';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -63,6 +65,8 @@ function App() {
                 />
               }
             />
+            <Route path="/employees" element={<Employees />} />
+            <Route path="/customerservice" element={<CustomerService />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route
               path="/confirmation"
