@@ -11,7 +11,7 @@ const pool = new Pool({
   host: 'localhost',
   database: 'ServicioCliente',
   password: '(Nemesta151005)',
-  port: 5432, // PostgreSQL server port
+  port: 5432
 });
 
 app.use(cors());
